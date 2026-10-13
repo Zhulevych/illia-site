@@ -1,0 +1,141 @@
+backend:
+  name: git-gateway
+  branch: main
+locale: uk
+media_folder: im
+public_folder: im
+site_url: /
+display_url: /
+
+collections:
+  - name: site
+    label: Сайт
+    editor: { preview: false }
+    files:
+      - name: content
+        label: Весь контент сайту
+        file: content.json
+        format: json
+        fields:
+          - label: Контакти
+            name: contacts
+            widget: object
+            collapsed: false
+            fields:
+              - { label: "Instagram (нік без @)", name: instagram, widget: string }
+              - { label: "Telegram (нік без @, порожньо — сховати)", name: telegram, widget: string, required: false }
+              - { label: "Телефон (порожньо — сховати)", name: phone, widget: string, required: false }
+
+          - label: Головний екран
+            name: hero
+            widget: object
+            fields:
+              - { label: Надпис зверху, name: kicker, widget: string }
+              - { label: Ім'я, name: name1, widget: string }
+              - { label: Прізвище, name: name2, widget: string }
+              - { label: Підзаголовок, name: sub, widget: text }
+              - { label: Цитата, name: offer, widget: text }
+              - { label: Текст кнопки, name: cta, widget: string }
+              - { label: "Фото Іллі (на білому фоні)", name: photo, widget: image }
+              - { label: "Фон: кольоровий дим (до 3 фото)", name: smoke, widget: list, field: { label: Фото, name: src, widget: image } }
+
+          - label: Цифри
+            name: facts
+            widget: list
+            summary: "{{fields.n}} {{fields.unit}}"
+            fields:
+              - { label: Число, name: n, widget: number, value_type: float }
+              - { label: "Одиниця (років, +, %)", name: unit, widget: string }
+              - { label: Опис, name: label, widget: string }
+
+          - label: Експертність
+            name: expertise
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Пункти, name: items, widget: list, summary: "{{fields.t}}", fields: [ { label: Назва, name: t, widget: string }, { label: Опис, name: d, widget: text } ] }
+
+          - label: Артисти (бігучий рядок)
+            name: artists
+            widget: object
+            fields:
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Імена, name: list, widget: list, field: { label: Ім'я, name: name, widget: string } }
+
+          - label: Компанії-клієнти (логотипи)
+            name: clients
+            widget: object
+            fields:
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Компанії, name: list, widget: list, summary: "{{fields.name}}", fields: [ { label: Назва, name: name, widget: string }, { label: "Логотип (PNG/SVG, без логотипу — покаже назву)", name: logo, widget: image, required: false } ] }
+
+          - { label: "Великі фото між блоками (3 шт.)", name: moods, widget: list, field: { label: Фото, name: src, widget: image } }
+
+          - label: Рілси
+            name: reels
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: "Посилання на рілси Instagram", name: links, widget: list, field: { label: "Посилання (https://www.instagram.com/p/...)", name: url, widget: string } }
+
+          - label: Послуги
+            name: services
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Текст кнопок, name: cta, widget: string }
+              - { label: Формати, name: items, widget: list, summary: "{{fields.t}}", fields: [ { label: Назва, name: t, widget: string }, { label: Опис, name: d, widget: text }, { label: Фото, name: photo, widget: image } ] }
+              - label: Пакет «під ключ»
+                name: turnkey
+                widget: object
+                fields:
+                  - { label: Надпис, name: k, widget: string }
+                  - { label: Заголовок, name: t, widget: string }
+                  - { label: Опис, name: d, widget: text }
+                  - { label: Примітка, name: n, widget: text }
+
+          - label: Спецефекти
+            name: effects
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Ефекти, name: items, widget: list, summary: "{{fields.t}}", fields: [ { label: Назва, name: t, widget: string }, { label: Опис, name: d, widget: text }, { label: "Фото (кілька — будуть змінюватись)", name: photos, widget: list, field: { label: Фото, name: src, widget: image } } ] }
+
+          - label: Портфоліо
+            name: gallery
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Текст в кінці, name: text, widget: text }
+              - { label: Фото, name: photos, widget: list, field: { label: Фото, name: src, widget: image } }
+
+          - label: Відгуки
+            name: reviews
+            widget: object
+            fields:
+              - { label: Показувати блок, name: show, widget: boolean, default: true }
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Відгуки, name: items, widget: list, summary: "{{fields.n}}", fields: [ { label: Текст, name: q, widget: text }, { label: Хто, name: n, widget: string }, { label: Подія, name: e, widget: string }, { label: Фото, name: photo, widget: image, required: false } ] }
+
+          - label: Рекомендую (підрядники)
+            name: partners
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Підрядники, name: items, widget: list, summary: "{{fields.role}} — {{fields.name}}", fields: [ { label: Роль, name: role, widget: string }, { label: Нік, name: name, widget: string }, { label: Посилання, name: url, widget: string }, { label: Фото, name: photo, widget: image, required: false } ] }
+
+          - label: Контакти (блок)
+            name: contact
+            widget: object
+            fields:
+              - { label: Надпис, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+
+          - { label: Текст у футері, name: footer, widget: string }
