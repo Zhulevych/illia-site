@@ -37,6 +37,7 @@ a:hover{color:#1a1816}
 section{scroll-margin-top:64px}
 }
 </style>
+<script>if(/(invite|recovery|confirmation|email_change)_token=/.test(location.hash)&&!/\/admin/.test(location.pathname))location.replace("/admin/"+location.hash);</script>
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#ffffff"/><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#8a6a3b">IZ</text></svg></template>
 </helmet>
 
@@ -46,18 +47,7 @@ section{scroll-margin-top:64px}
 </div>
 
 <section id="top" data-m="hero" data-screen-label="Hero" style="position:relative;min-height:100vh;box-sizing:border-box;padding:120px clamp(20px,5vw,72px) 64px;overflow:hidden">
-  <div style="position:absolute;inset:0;pointer-events:none">
-    <sc-for list="{{ smoke }}" as="s" hint-placeholder-count="0">
-      <div style="position:absolute;{{ s.pos }};animation:boom 2.2s cubic-bezier(.16,.8,.2,1) {{ s.delay }} both">
-        <div data-parallax="{{ s.par }}" style="width:100%;height:100%">
-          <img src="{{ s.src }}" alt="" style="width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(closest-side,#000 35%,rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side,#000 35%,rgba(0,0,0,0) 100%);opacity:0.85;animation:{{ s.drift }} 14s ease-in-out infinite">
-        </div>
-      </div>
-    </sc-for>
-    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0.88) 0%,rgba(255,255,255,0.55) 45%,rgba(255,255,255,0) 75%)"></div>
-    <div style="position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(180deg,rgba(255,255,255,0),#ffffff)"></div>
-  </div>
-  <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
+    <div style="position:relative;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,5vw,80px);align-items:center">
     <div style="display:flex;flex-direction:column;gap:26px">
       <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.hero.kicker }}</div>
       <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(64px,9.5vw,152px);line-height:0.88;letter-spacing:-0.02em;display:flex;flex-direction:column">
@@ -67,8 +57,7 @@ section{scroll-margin-top:64px}
       <p data-reveal="400" style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.45;font-weight:600;max-width:30ch;text-wrap:pretty">{{ c.hero.sub }}</p>
       <p data-reveal="520" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,1.9vw,26px);line-height:1.4;color:#4a453f;max-width:36ch;text-wrap:pretty">{{ c.hero.offer }}</p>
       <div data-m="hero-cta" data-reveal="640" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
-        <a href="{{ bookUrl }}" target="_blank" onClick="{{ onBook }}" style="display:flex;align-items:center;min-height:56px;padding:0 30px;background:#8a6a3b;color:#ffffff;font-weight:600;font-size:15px;border-radius:999px;box-shadow:0 12px 30px rgba(138,106,59,0.3)" style-hover="background:#1a1816;color:#ffffff">{{ c.hero.cta }}</a>
-        <a href="{{ igUrl }}" target="_blank" style="display:flex;align-items:center;min-height:56px;padding:0 28px;border:1px solid rgba(26,24,22,0.3);background:rgba(255,255,255,0.6);color:#1a1816;font-weight:600;font-size:15px;border-radius:999px" style-hover="border-color:#8a6a3b;color:#8a6a3b">Instagram</a>
+        <a href="{{ igUrl }}" target="_blank" onClick="{{ onBook }}" style="display:flex;align-items:center;min-height:56px;padding:0 30px;background:#8a6a3b;color:#ffffff;font-weight:600;font-size:15px;border-radius:999px;box-shadow:0 12px 30px rgba(138,106,59,0.3)" style-hover="background:#1a1816;color:#ffffff">{{ c.hero.cta }}</a>
       </div>
     </div>
     <div style="position:relative;justify-self:center;width:100%;max-width:620px;aspect-ratio:1231/1278">
@@ -93,12 +82,11 @@ section{scroll-margin-top:64px}
 
 <section data-screen-label="Expertise" style="padding:clamp(88px,12vw,168px) 0 0">
   <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
-    <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">01 — {{ c.expertise.kicker }}</div>
+    <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.expertise.kicker }}</div>
     <h2 data-reveal="100" style="margin:20px 0 clamp(48px,6vw,88px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em;max-width:14ch">{{ c.expertise.title }}</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(32px,4vw,64px)">
       <sc-for list="{{ exp }}" as="e" hint-placeholder-count="3">
         <div data-reveal="{{ e.delay }}" style="display:flex;flex-direction:column;gap:18px;padding-top:28px;border-top:1px solid rgba(138,106,59,0.5)">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:#8a6a3b">{{ e.n }}</div>
           <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.05">{{ e.t }}</h3>
           <p style="margin:0;font-size:16px;line-height:1.6;color:#6b655c;text-wrap:pretty">{{ e.d }}</p>
         </div>
@@ -136,32 +124,8 @@ section{scroll-margin-top:64px}
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,#ffffff 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 80%,#ffffff 100%)"></div>
 </section>
 
-<section data-screen-label="Reels" style="padding:clamp(72px,10vw,140px) 0 0">
-  <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,56px)">
-    <div>
-      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">02 — {{ c.reels.kicker }}</div>
-      <h2 data-reveal="100" style="margin:20px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em">{{ c.reels.title }}</h2>
-    </div>
-    <div style="display:flex;gap:10px">
-      <button onClick="{{ reelPrev }}" aria-label="Назад" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(26,24,22,0.3);background:none;color:#1a1816;font-size:18px;cursor:pointer" style-hover="border-color:#8a6a3b;color:#8a6a3b">←</button>
-      <button onClick="{{ reelNext }}" aria-label="Вперед" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(26,24,22,0.3);background:none;color:#1a1816;font-size:18px;cursor:pointer" style-hover="border-color:#8a6a3b;color:#8a6a3b">→</button>
-    </div>
-  </div>
-  <div data-el="reels" data-scroller="1" style="display:flex;gap:clamp(14px,1.6vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 clamp(20px,5vw,72px) 8px;scroll-padding:0 clamp(20px,5vw,72px);scrollbar-width:none;-webkit-overflow-scrolling:touch">
-    <sc-for list="{{ reels }}" as="r" hint-placeholder-count="3">
-      <div style="flex:0 0 min(86vw,360px);scroll-snap-align:start;height:640px;border-radius:12px;overflow:hidden;background:#f4f1ec;border:1px solid rgba(26,24,22,0.08)">
-        <iframe src="{{ r.src }}" title="Instagram reel" loading="lazy" allowtransparency="true" allow="autoplay; encrypted-media; picture-in-picture" scrolling="no" style="width:100%;height:100%;border:0;display:block"></iframe>
-      </div>
-    </sc-for>
-    <a href="{{ igUrl }}" target="_blank" style="flex:0 0 min(86vw,360px);scroll-snap-align:start;height:640px;box-sizing:border-box;border-radius:12px;border:1px solid rgba(138,106,59,0.4);padding:36px;display:flex;flex-direction:column;justify-content:space-between;color:#1a1816" style-hover="border-color:#8a6a3b;color:#8a6a3b">
-      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;line-height:1.15">Більше рілсів — в Instagram</span>
-      <span style="font-weight:600;font-size:15px">@{{ ig }} ↗</span>
-    </a>
-  </div>
-</section>
-
 <section data-screen-label="Services" style="padding:clamp(88px,12vw,168px) clamp(20px,5vw,72px) 0;max-width:1440px;margin:0 auto">
-  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">03 — {{ c.services.kicker }}</div>
+  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.services.kicker }}</div>
   <h2 data-reveal="100" style="margin:20px 0 clamp(40px,5vw,72px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em">{{ c.services.title }}</h2>
   <div style="display:flex;flex-direction:column">
     <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
@@ -171,7 +135,6 @@ section{scroll-margin-top:64px}
           <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#ffffff 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 78%,#ffffff 100%),linear-gradient(90deg,#ffffff 0%,rgba(255,255,255,0) 14%,rgba(255,255,255,0) 86%,#ffffff 100%)"></div>
         </div>
         <div style="display:flex;gap:24px;align-items:baseline">
-          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#8a6a3b">{{ s.n }}</span>
           <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.2vw,48px);line-height:1.02;text-wrap:balance">{{ s.t }}</h3>
         </div>
         <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
@@ -200,7 +163,7 @@ section{scroll-margin-top:64px}
 </section>
 
 <section data-screen-label="Effects" style="padding:clamp(72px,10vw,140px) clamp(20px,5vw,72px) 0;max-width:1440px;margin:0 auto">
-  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">04 — {{ c.effects.kicker }}</div>
+  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.effects.kicker }}</div>
   <h2 data-reveal="100" style="margin:20px 0 clamp(40px,5vw,72px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em">{{ c.effects.title }}</h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(20px,2vw,28px)">
     <sc-for list="{{ fx }}" as="x" hint-placeholder-count="4">
@@ -227,7 +190,7 @@ section{scroll-margin-top:64px}
 <section data-screen-label="Gallery" style="padding:clamp(88px,12vw,168px) 0 0">
   <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,56px)">
     <div>
-      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">05 — {{ c.gallery.kicker }}</div>
+      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.gallery.kicker }}</div>
       <h2 data-reveal="100" style="margin:20px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em">{{ c.gallery.title }}</h2>
     </div>
     <div style="display:flex;gap:10px">
@@ -250,7 +213,7 @@ section{scroll-margin-top:64px}
 
 <sc-if value="{{ showReviews }}" hint-placeholder-val="{{ true }}">
 <section data-screen-label="Reviews" style="padding:clamp(88px,12vw,168px) clamp(20px,5vw,72px) 0;max-width:1440px;margin:0 auto">
-  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">06 — {{ c.reviews.kicker }}</div>
+  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.reviews.kicker }}</div>
   <h2 data-reveal="100" style="margin:20px 0 clamp(40px,5vw,72px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em;max-width:16ch">{{ c.reviews.title }}</h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(20px,2.4vw,32px)">
     <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
@@ -274,7 +237,7 @@ section{scroll-margin-top:64px}
 <section data-screen-label="Recommend" style="padding:clamp(88px,12vw,168px) 0 0">
   <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,56px)">
     <div>
-      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">07 — {{ c.partners.kicker }}</div>
+      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.partners.kicker }}</div>
       <h2 data-reveal="100" style="margin:20px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em">{{ c.partners.title }}</h2>
     </div>
     <div style="display:flex;gap:10px">
@@ -309,16 +272,23 @@ section{scroll-margin-top:64px}
 </section>
 
 <section id="contact" data-screen-label="Contact" style="padding:clamp(72px,10vw,140px) clamp(20px,5vw,72px) clamp(56px,6vw,88px);max-width:1440px;margin:0 auto">
-  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">08 — {{ c.contact.kicker }}</div>
+  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.contact.kicker }}</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(40px,6vw,96px);align-items:end;margin-top:20px">
     <h2 data-reveal="100" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(46px,6.5vw,110px);line-height:0.92;letter-spacing:-0.02em;text-wrap:balance">{{ c.contact.title }}</h2>
-    <div data-reveal="200" style="display:flex;flex-direction:column">
-      <sc-for list="{{ contacts }}" as="ct" hint-placeholder-count="1">
-        <a href="{{ ct.href }}" target="_blank" onClick="{{ onBook }}" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:26px 0;border-top:1px solid rgba(26,24,22,0.12);border-bottom:1px solid rgba(26,24,22,0.12);margin-bottom:-1px;color:#1a1816" style-hover="color:#8a6a3b">
-          <span style="font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#6b655c">{{ ct.label }}</span>
-          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6vw,38px)">{{ ct.value }}</span>
+    <div data-reveal="200" style="display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-wrap:wrap;gap:20px">
+        <a href="{{ igUrl }}" target="_blank" onClick="{{ onBook }}" aria-label="Instagram" style="width:96px;height:96px;border-radius:50%;border:1px solid rgba(138,106,59,0.5);display:flex;align-items:center;justify-content:center;color:#8a6a3b;transition:background .3s,color .3s,transform .3s" style-hover="background:#8a6a3b;color:#ffffff;transform:translateY(-4px)">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="0.6" fill="currentColor"></circle></svg>
         </a>
-      </sc-for>
+        <sc-if value="{{ tgUrl }}" hint-placeholder-val="{{ true }}">
+          <a href="{{ tgUrl }}" target="_blank" onClick="{{ onBook }}" aria-label="Telegram" style="width:96px;height:96px;border-radius:50%;border:1px solid rgba(138,106,59,0.5);display:flex;align-items:center;justify-content:center;color:#8a6a3b;transition:background .3s,color .3s,transform .3s" style-hover="background:#8a6a3b;color:#ffffff;transform:translateY(-4px)">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 3.5 2.8 10.7c-.8.3-.8 1.4 0 1.7l4.7 1.6 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.5 4.8 3.5c.6.4 1.4.1 1.6-.6L22.9 4.8c.2-.9-.6-1.6-1.4-1.3Z"></path><path d="m7.5 14 10-6.5-7.6 8.4"></path></svg>
+          </a>
+        </sc-if>
+      </div>
+      <sc-if value="{{ phone }}" hint-placeholder-val="{{ false }}">
+        <a href="{{ phoneHref }}" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);color:#1a1816" style-hover="color:#8a6a3b">{{ phone }}</a>
+      </sc-if>
     </div>
   </div>
 </section>
@@ -412,7 +382,7 @@ class Component extends DCLogic {
     const moods = c.moods || [];
     return {
       c, ig,
-      igUrl, bookUrl: tgUrl || igUrl,
+      igUrl, tgUrl, phone, phoneHref: 'tel:' + phone.replace(/[^\d+]/g, ''), bookUrl: tgUrl || igUrl,
       onBook: e => this.confetti(e),
       showReviews: (this.props.showReviews ?? true) && (c.reviews ? c.reviews.show !== false : true),
       smoke: sm.slice(0, 3).map((src, i) => ({ src, pos: smokePos[i], delay: (0.15 + i * 0.35) + 's', drift: 'drift' + (i + 1), par: String([0.12, 0.2, 0.08][i]) })),
