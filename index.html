@@ -120,7 +120,7 @@ section{scroll-margin-top:64px}
 </section>
 
 <section data-m="mood" data-screen-label="Mood 1" style="position:relative;height:clamp(420px,86vh,900px);overflow:hidden">
-  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0;background-image:url('{{ mood1 }}');background-size:cover;background-position:center"></div>
+  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0"><img src="{{ mood1 }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,#ffffff 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 80%,#ffffff 100%)"></div>
 </section>
 
@@ -158,7 +158,7 @@ section{scroll-margin-top:64px}
 </section>
 
 <section data-m="mood" data-screen-label="Mood 2" style="position:relative;height:clamp(420px,86vh,900px);margin-top:clamp(88px,12vw,168px);overflow:hidden">
-  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0;background-image:url('{{ mood2 }}');background-size:cover;background-position:center 30%"></div>
+  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0"><img src="{{ mood2 }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,#ffffff 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 80%,#ffffff 100%)"></div>
 </section>
 
@@ -212,12 +212,20 @@ section{scroll-margin-top:64px}
 </section>
 
 <sc-if value="{{ showReviews }}" hint-placeholder-val="{{ true }}">
-<section data-screen-label="Reviews" style="padding:clamp(88px,12vw,168px) clamp(20px,5vw,72px) 0;max-width:1440px;margin:0 auto">
-  <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.reviews.kicker }}</div>
-  <h2 data-reveal="100" style="margin:20px 0 clamp(40px,5vw,72px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em;max-width:16ch">{{ c.reviews.title }}</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(20px,2.4vw,32px)">
+<section data-screen-label="Reviews" style="padding:clamp(88px,12vw,168px) 0 0">
+  <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,56px)">
+    <div>
+      <div data-reveal="0" style="font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a3b">{{ c.reviews.kicker }}</div>
+      <h2 data-reveal="100" style="margin:20px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(44px,6.5vw,104px);line-height:0.95;letter-spacing:-0.015em;max-width:16ch">{{ c.reviews.title }}</h2>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onClick="{{ revPrev }}" aria-label="Назад" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(26,24,22,0.3);background:none;color:#1a1816;font-size:18px;cursor:pointer" style-hover="border-color:#8a6a3b;color:#8a6a3b">←</button>
+      <button onClick="{{ revNext }}" aria-label="Вперед" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(26,24,22,0.3);background:none;color:#1a1816;font-size:18px;cursor:pointer" style-hover="border-color:#8a6a3b;color:#8a6a3b">→</button>
+    </div>
+  </div>
+  <div data-el="rev" data-scroller="1" style="display:flex;gap:clamp(14px,1.6vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 clamp(20px,5vw,72px) 8px;scroll-padding:0 clamp(20px,5vw,72px);scrollbar-width:none;-webkit-overflow-scrolling:touch">
     <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
-      <figure data-reveal="{{ r.delay }}" style="margin:0;padding:clamp(28px,3vw,44px);background:#f4f1ec;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;gap:36px">
+      <figure style="flex:0 0 min(84vw,440px);scroll-snap-align:start;box-sizing:border-box;margin:0;padding:clamp(28px,3vw,44px);background:#f4f1ec;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;gap:36px">
         <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,1.9vw,27px);line-height:1.35;text-wrap:pretty">«{{ r.q }}»</blockquote>
         <figcaption style="display:flex;align-items:center;gap:14px">
           <sc-if value="{{ r.photo }}" hint-placeholder-val="{{ false }}">
@@ -267,7 +275,7 @@ section{scroll-margin-top:64px}
 </section>
 
 <section data-m="mood" data-screen-label="Mood 3" style="position:relative;height:clamp(420px,86vh,900px);margin-top:clamp(88px,12vw,168px);overflow:hidden">
-  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0;background-image:url('{{ mood3 }}');background-size:cover;background-position:center 35%"></div>
+  <div data-parallax="-0.14" style="position:absolute;inset:-14% 0"><img src="{{ mood3 }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block"></div>
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,#ffffff 0%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 80%,#ffffff 100%)"></div>
 </section>
 
@@ -307,7 +315,13 @@ class Component extends DCLogic {
   $(n) { return document.querySelector(`[data-el="${n}"]`); }
 
   componentDidMount() {
-    fetch('content.json', { cache: 'no-cache' }).then(r => r.json()).then(c => this.setState({ c }, () => this.afterLoad())).catch(e => console.error('content.json', e));
+    const K = ['contacts','hero','facts','expertise','artists','clients','moods','services','effects','gallery','reviews','partners','contact'];
+    const fix = v => typeof v === 'string' && /^\/?im\//.test(v) ? encodeURI(decodeURI(v.replace(/^\//, ''))) : Array.isArray(v) ? v.map(fix) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fix(x)])) : v;
+    Promise.all(K.map(k => fetch('content/' + k + '.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null))).then(arr => {
+      const c = {}; K.forEach((k, i) => { const v = fix(arr[i]) || {}; c[k] = (k === 'facts' || k === 'moods') ? (v.items || []) : v; });
+      c.footer = c.contact.footer || '';
+      this.setState({ c }, () => this.afterLoad());
+    });
     this.onScroll = () => {
       const vh = window.innerHeight;
       document.querySelectorAll('[data-parallax]').forEach(el => {
@@ -404,6 +418,7 @@ class Component extends DCLogic {
       galPrev: () => this.scroll('gal', -1), galNext: () => this.scroll('gal', 1),
       reviews: ((c.reviews && c.reviews.items) || []).map((r, i) => ({ q: r.q, n: r.n, e: r.e, photo: r.photo || '', delay: dl(i) })),
       partners: ((c.partners && c.partners.items) || []).map(x => ({ role: x.role, name: x.name, url: x.url, photo: x.photo || '' })),
+      revPrev: () => this.scroll('rev', -1), revNext: () => this.scroll('rev', 1),
       recPrev: () => this.scroll('rec', -1), recNext: () => this.scroll('rec', 1),
       contacts: [
         tg && { label: 'Telegram', value: '@' + tg, href: tgUrl },

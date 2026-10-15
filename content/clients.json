@@ -1,0 +1,25 @@
+{
+  "title": "Мені довіряють",
+  "list": [
+    {
+      "name": "1+1",
+      "logo": "im/logo-1plus1.svg"
+    },
+    {
+      "name": "Лото Забава",
+      "logo": ""
+    },
+    {
+      "name": "Philips",
+      "logo": "im/logo-philips.svg"
+    },
+    {
+      "name": "SoftServe",
+      "logo": "im/logo-softserve.png"
+    },
+    {
+      "name": "+86 IT-компаній",
+      "logo": ""
+    }
+  ]
+}

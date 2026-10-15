@@ -1,0 +1,42 @@
+{
+  "kicker": "Рекомендую",
+  "title": "Команда, якій я довіряю",
+  "items": [
+    {
+      "role": "Фотограф",
+      "name": "@photographer",
+      "url": "https://instagram.com/",
+      "photo": ""
+    },
+    {
+      "role": "Відеограф",
+      "name": "@videographer",
+      "url": "https://instagram.com/",
+      "photo": ""
+    },
+    {
+      "role": "Декоратор",
+      "name": "@decor.studio",
+      "url": "https://instagram.com/",
+      "photo": ""
+    },
+    {
+      "role": "Світлове шоу",
+      "name": "@light.show",
+      "url": "https://instagram.com/",
+      "photo": ""
+    },
+    {
+      "role": "Флорист",
+      "name": "@florist",
+      "url": "https://instagram.com/",
+      "photo": ""
+    },
+    {
+      "role": "Кондитер",
+      "name": "@cake.studio",
+      "url": "https://instagram.com/",
+      "photo": ""
+    }
+  ]
+}
