@@ -47,6 +47,8 @@ a:hover{color:#1a1816}
 [data-m=mbar]{display:flex!important}
 body{padding-bottom:calc(84px + env(safe-area-inset-bottom, 0px))}
 [data-m=ct-icons]{justify-content:center!important}
+[data-m=mq1]{animation-duration:16s!important}
+[data-m=mq2]{animation-duration:14s!important}
 [data-m=sub-desk],[data-m=offer-desk]{display:none!important}
 [data-m=sub-mob]{display:flex!important}
 [data-m=offer-mob]{display:block!important;position:relative;z-index:1}
@@ -58,6 +60,9 @@ section{scroll-margin-top:64px}
 </style>
 <script>if(/(invite|recovery|confirmation|email_change)_token=/.test(location.hash)&&!/\/admin/.test(location.pathname))location.replace("/admin/"+location.hash);</script>
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#ffffff"/><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="34" fill="#8a6a3b">IZ</text></svg></template>
+<link rel="preload" as="image" href="im/logo-1plus1.svg">
+<link rel="preload" as="image" href="im/logo-philips.svg">
+<link rel="preload" as="image" href="im/logo-softserve.png">
 </helmet>
 
 <div data-m="nav" style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(20px,5vw,72px);background:rgba(255,255,255,0.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,24,22,0.08)">
@@ -129,7 +134,7 @@ section{scroll-margin-top:64px}
   </div>
   <div style="margin-top:clamp(72px,9vw,128px);padding:36px 0 40px;border-top:1px solid rgba(26,24,22,0.1);border-bottom:1px solid rgba(26,24,22,0.1);overflow:hidden;display:flex;flex-direction:column;gap:20px">
     <div style="padding:0 clamp(20px,5vw,72px);font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#6b655c">{{ c.artists.title }}</div>
-    <div style="display:flex;width:max-content;animation:mq 42s linear infinite">
+    <div data-m="mq1" style="display:flex;width:max-content;animation:mq 42s linear infinite;backface-visibility:hidden">
       <sc-for list="{{ artists }}" as="a" hint-placeholder-count="10">
         <div style="display:flex;align-items:center;gap:40px;padding-right:40px;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.4vw,64px);white-space:nowrap;font-weight:500">
           <span>{{ a }}</span>
@@ -138,11 +143,11 @@ section{scroll-margin-top:64px}
       </sc-for>
     </div>
     <div style="padding:16px clamp(20px,5vw,72px) 0;font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:#6b655c">{{ c.clients.title }}</div>
-    <div style="display:flex;width:max-content;animation:mqr 36s linear infinite">
+    <div data-m="mq2" style="display:flex;width:max-content;animation:mqr 36s linear infinite;backface-visibility:hidden">
       <sc-for list="{{ clients }}" as="cl" hint-placeholder-count="10">
         <div style="display:flex;align-items:center;gap:72px;padding-right:72px;height:72px">
           <sc-if value="{{ cl.hasLogo }}" hint-placeholder-val="{{ false }}">
-            <img src="{{ cl.logo }}" alt="{{ cl.name }}" style="height:clamp(34px,4vw,52px);width:auto;max-width:220px;object-fit:contain">
+            <img src="{{ cl.logo }}" alt="{{ cl.name }}" loading="eager" decoding="async" style="height:clamp(34px,4vw,52px);width:auto;max-width:220px;object-fit:contain">
           </sc-if>
           <sc-if value="{{ cl.noLogo }}" hint-placeholder-val="{{ true }}">
             <span style="font:700 clamp(24px,2.6vw,36px) Manrope,sans-serif;letter-spacing:-0.01em;white-space:nowrap;color:{{ cl.color }}">{{ cl.name }}</span>
@@ -369,6 +374,10 @@ class Component extends DCLogic {
     window.addEventListener('resize', this.onScroll);
   }
   afterLoad() {
+    const restart = () => document.querySelectorAll('[data-m=mq1],[data-m=mq2]').forEach(el => { const n = el.dataset.m === 'mq1' ? 'mq' : 'mqr'; el.style.animationName = 'none'; void el.offsetWidth; el.style.animationName = n; });
+    requestAnimationFrame(restart);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(restart);
+    window.addEventListener('load', restart, { once: true });
     const g = this.$('gal');
     if (g) {
       const reset = () => { if (!this.galTouched) g.scrollLeft = 0; };
@@ -444,8 +453,8 @@ class Component extends DCLogic {
       smoke: sm.slice(0, 3).map((src, i) => ({ src, pos: smokePos[i], delay: (0.15 + i * 0.35) + 's', drift: 'drift' + (i + 1), par: String([0.12, 0.2, 0.08][i]) })),
       facts: (c.facts || []).map((f, i) => { const dec = String(f.n).includes('.') ? 1 : 0; return { shown: (f.n * p).toFixed(dec), unit: f.unit, label: f.label, delay: dl(i) }; }),
       exp: ((c.expertise && c.expertise.items) || []).map((e, i) => ({ n: ['I', 'II', 'III', 'IV', 'V', 'VI'][i] || i + 1, t: e.t, d: e.d, delay: dl(i) })),
-      artists: [...((c.artists && c.artists.list) || []), ...((c.artists && c.artists.list) || [])],
-      clients: [...cl, ...cl, ...cl, ...cl],
+      artists: this.state.c ? [...((c.artists && c.artists.list) || []), ...((c.artists && c.artists.list) || [])] : [],
+      clients: this.state.c ? [...cl, ...cl] : [],
       mood1: moods[0] || '', mood2: moods[1] || '', mood3: moods[2] || '',
       reels: ((c.reels && c.reels.links) || []).map(reelSrc).filter(Boolean).map(src => ({ src })),
       reelPrev: () => this.scroll('reels', -1), reelNext: () => this.scroll('reels', 1),
